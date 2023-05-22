@@ -1,0 +1,56 @@
+mainwindow.xaml:
+
+<Window x:Class="praktic6.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:praktic6"
+        mc:Ignorable="d"
+        Title="Наименьшее значение функции" Height="244.937" Width="360.759">
+    <Grid Margin="0,0,-50,-58">
+        <Label Content="Введите координату точки a:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="aTextBox" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Введите координату точки b:" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="bTextBox" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Посчитать" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top" Width="75" Click="BtnOK_Click"/>
+        <Label x:Name="resultLabel" Content="Наименьшее значение функции в точке:" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>
+
+
+mainwindow.xaml.cs:
+
+namespace praktic6
+{
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private double f(double x)
+        {
+            return Math.Cos(2 * x) + Math.Sin(x - 3);
+        }
+
+        private void BtnOK_Click(object sender, RoutedEventArgs e)
+        {
+            double a = double.Parse(aTextBox.Text);
+            double b = double.Parse(bTextBox.Text);
+
+            double fa = f(a);
+            double fb = f(b);
+
+            if (fa < fb)
+            {
+                resultLabel.Content = "Наименьшее значение функции в точке a: " + fa;
+            }
+            else
+            {
+                resultLabel.Content = "Наименьшее значение функции в точке b: " + fb;
+            }
+        }
+    }
+}

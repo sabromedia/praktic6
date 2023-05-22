@@ -1,0 +1,70 @@
+<Window x:Class="praktik6.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:praktik6"
+        mc:Ignorable="d"
+        Title="Таблица значений функции" Height="300" Width="400">
+    <Grid>
+        <Label Content="Введите значение a:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="aTextBox" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Введите значение b:" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="bTextBox" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Введите значение шага h:" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="hTextBox" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Посчитать" HorizontalAlignment="Left" Margin="10,175,0,0" VerticalAlignment="Top" Width="75" Click="BtnOK_Click"/>
+        <DataGrid x:Name="resultDataGrid" HorizontalAlignment="Left" Margin="167,10,0,10" Width="225" SelectionChanged="resultDataGrid_SelectionChanged"/>
+    </Grid>
+</Window>
+
+
+
+namespace praktik6
+{
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private double f(double x)
+        {
+            if (x <= 5)
+            {
+                return x * x + 5;
+            }
+            else if (x > 5 && x < 20)
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
+        private void BtnOK_Click(object sender, RoutedEventArgs e)
+        {
+            double a = double.Parse(aTextBox.Text);
+            double b = double.Parse(bTextBox.Text);
+            double h = double.Parse(hTextBox.Text);
+
+            List<KeyValuePair<double, double>> results = new List<KeyValuePair<double, double>>();
+
+            for (double x = a; x <= b; x += h)
+            {
+                double y = f(x);
+                results.Add(new KeyValuePair<double, double>(x, y));
+            }
+
+            resultDataGrid.ItemsSource = results;
+        }
+
+        private void resultDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+    }
+}
